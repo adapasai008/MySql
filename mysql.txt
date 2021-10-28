@@ -1,0 +1,45 @@
+
+
+mysql -u root -p
+
+
+
+create table post(
+id int primary key,
+name varchar(100),
+authorid int foreign key references id of table author
+createdts datetime
+)
+
+create table author ( id int primary key, name varchar(100));
+
+
+create table post(id int primary key, name varchar(100), authorid int, FOREIGN KEY ( authorid) REFERENCES author(id));
+
+
+
+
+create table user (id int primary key,name varchar(100));
+
+create table comment (id int primary key,content varchar(1000),postid int, 
+createdts datetime,
+userid int,
+FOREIGN KEY (postid) REFERENCES post(id),
+FOREIGN KEY (userid) REFERENCES user(id)
+
+
+)
+
+
+
+
+
+SELECT p.id as PostId, p.name as PostName, c.id as CommentId, c.content as Comment FROM post p 
+    INNER JOIN comment c ON c.postid = p.id
+         INNER JOIN author a ON p.authorid  = a.id 
+          WHERE a.name='James Bond' ORDER BY c.createdts desc limit 0,10;
+
+
+
+
+
